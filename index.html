@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/css/desktop.css">
+    <link rel="stylesheet" href="src/css/mobile.css">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/528/528101.png">
+    <title>Pokédex by Nayeli 🌻</title>
+</head>
+<body>
+    <header>
+        <div class="circles">
+            <div class="cicle-big">
+                <div class="circle-blue"></div>
+            </div>
+            <div class="circle-small">
+                <div class="circle-red"></div>
+                <div class="circle-yellow"></div>
+                <div class="circle-green"></div>
+            </div>
+        </div>
+        <h1 class="title">Pokédex by Nayeli 🌻</h1>
+        <nav>
+            <a href="index.html" class="home">
+                <figure>
+                    <img src="src/images/house2.svg" alt="Ícono de página inicial" title="Página inicial"/>
+                </figure>
+            </a>
+            <a href="#" onclick="Render.Favorites()" class="favorites">
+                <figure>
+                    <img src="src/images/heart2.svg" alt="Ícono para ir a los favoritos" title="Favoritos"/>
+                </figure> 
+            </a>
+        </nav>
+    </header>
+    <main>
+        <div class="search">
+            <img width="50px" src="src/images/plus.svg" alt="Imagen plus">
+            <input onkeyup="Render.Search(this.value)"type="text" id="search-poke">
+            <div class="circle-search"></div>
+        </div>
+            <ul class="list-tips">
+                <li onclick="Render.Category('')"   class="tips tips-all" >All</li>
+                <li onclick="Render.Category('grass')"   class="tips tips-grass" >Grass</li>
+                <li onclick="Render.Category('fire')"    class="tips tips-fire" >Fire</li>
+                <li onclick="Render.Category('water')"   class="tips tips-water" >Water</li>
+                <li onclick="Render.Category('bug')"     class="tips tips-bug" >Bug</li>
+                <li onclick="Render.Category('normal')"  class="tips tips-normal" >Normal</li>
+                <li onclick="Render.Category('poison')"  class="tips tips-poison" >Poison</li>
+                <li onclick="Render.Category('electric')"class="tips tips-electric" >Electric</li>
+                <li onclick="Render.Category('ground')"  class="tips tips-ground" >Ground</li>
+                <li onclick="Render.Category('fairy')"   class="tips tips-fairy" >Fairy</li>
+                <li onclick="Render.Category('fighting')"class="tips tips-fighting" >Fighting</li>
+                <li onclick="Render.Category('psychic')" class="tips tips-psychic" >Psychic</li>
+                <li onclick="Render.Category('rock')"    class="tips tips-rock" >Rock</li>
+                <li onclick="Render.Category('ghost')"   class="tips tips-ghost" >Ghost</li>
+                <li onclick="Render.Category('ice')"     class="tips tips-ice" >Ice</li>
+                <li onclick="Render.Category('dragon')"  class="tips tips-dragon" >Dragon</li>
+                <li onclick="Render.Category('dark')"    class="tips tips-dark" >Dark</li>
+                <li onclick="Render.Category('steel')"   class="tips tips-steel" >Steel</li>
+                <li onclick="Render.Category('flying')"   class="tips tips-flying">Flying</li>
+            </ul>
+        <section id="cards">
+        </section>
+    </main>
+
+    <div class="modal modal-effects modal-off" id="div_modal">
+        <div class="modal-in modal-body " style="overflow-y: scroll;">
+            <div style="text-align: center;">
+                <div class="ball" id="ball"></div>
+                <img style="position: relative; z-index: 2" id="modal_img" height="200px" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png">
+            </div>
+            <div id="modalContenido">
+                <span id="modal_name"></span>
+                <span id="modal_type"></span>
+            </div>
+            <div id="modalDetails">
+                <p>Peso <span id="modal_weight"></span></p>
+                <p>Altura <span id="modal_height"></span></p>
+            </div>
+            <div id="modalStatus">
+                <h4>Status</h4>
+                <div class="modalStatusBody" >
+                    <div class="modalStatusInfo">
+                        <p>Hp</p>
+                        <div class="progressBar"><div class="progress progress-hp" id="progress_hp"><span id="modal_hp"></span></div></div>
+                    </div>
+                    <div class="modalStatusInfo">
+                        <p>Atk</p>
+                        <div class="progressBar"><div class="progress progress-atk" id="progress_atk"><span id="modal_atk"></span></div></div>
+                    </div>
+                    <div class="modalStatusInfo">
+                        <p>Def</p>
+                        <div class="progressBar"><div class="progress progress-def" id="progress_def"><span id="modal_def"></span></div></div>
+                    </div>
+                    <div class="modalStatusInfo">
+                        <p>Atk especial</p>
+                        <div class="progressBar"><div class="progress progress-satk" id="progress_satk"><span id="modal_satk"></span></div></div>
+                    </div>
+                    <div class="modalStatusInfo">
+                        <p>Def especial</p>
+                        <div class="progressBar"><div class="progress progress-sdef" id="progress_sdef"><span id="modal_sdef"></span></div></div>
+                    </div>
+                    <div class="modalStatusInfo">
+                        <p>Velocidade</p>
+                        <div class="progressBar"><div class="progress progress-speed" id="progress_speed"><span id="modal_speed"></span></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="src/js/script.js"></script>
+    <script src="src/js/modal.js"></script>
+</body>
+</html>
