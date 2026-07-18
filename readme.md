@@ -3,14 +3,6 @@
 	<img width="200" src="https://st10.cannypic.com/thumbs/38/381789_632_canny_pic.jpg">
 </h4>
 
-<p align="center">
- <a href="#-sobre-o-projeto">Sobre</a> •
- <a href="#-layout">Layout</a> • 
- <a href="#-como-executar-o-projeto">Cómo ejecutar</a> • 
- <a href="#-tecnologias">Tecnologías</a> • 
- <a href="#-agradecimentos">Contacto</a>
-</p>
-
 
 ## 💻 Sobre el proyecto
 
