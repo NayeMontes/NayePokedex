@@ -1,114 +1,118 @@
+/* ==========================================================================
+   TARJETAS POKÉDEX (cards.css)
+   ========================================================================== */
 
-
-.card{
+.card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    margin: 20px 20px 0px 0px;
+    width: 200px;
+    padding: 14px 10px;
+    margin: 10px;
     gap: 10px;
-    border-radius: 10px;
-    background-color:var(--gray-1);
+    border-radius: 16px;
     background-color: #ffffff;
     text-align: center;
-    overflow: hidden;
-    width: 200px;
-    padding: 10px;
     text-transform: capitalize;
-    text-align: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: 0.5s;
-    position: relative;    
+    
+    /* 1. Volvemos a encerrar la bola en la esquina */
+    overflow: hidden; 
+    
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    
+    /* 2. Mantener las tarjetas en un nivel bajo */
+    z-index: 1; 
+    
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* BOLA EN LA ESQUINA DE LA TARJETA */
-    .card-all::after{background-color: var(--tips-all);}
-    .card-all::after{background-color: var(--tips-all-hover);}
-    .card-grass::after{background-color: var(--tips-grass);}
-    .card-grass::after{background-color: var(--tips-grass-hover);}
-    .card-fire::after{background-color: var(--tips-fire);}
-    .card-fire::after{background-color: var(--tips-fire-hover);}
-    .card-water::after{background-color: var(--tips-water);}
-    .card-water::after{background-color: var(--tips-water-hover);}
-    .card-bug::after{background-color: var(--tips-bug)}
-    .card-bug::after{background-color: var(--tips-bug-hover)}
-    .card-normal::after{background-color: var(--tips-normal);}
-    .card-normal::after{background-color: var(--tips-normal-hover);}
-    .card-poison::after{background-color: var(--tips-poison);}
-    .card-poison::after{background-color: var(--tips-poison-hover);}
-    .card-electric::after{background-color: var(--tips-electric);}
-    .card-electric::after{background-color: var(--tips-electric-hover);}
-    .card-ground::after{background-color: var(--tips-ground);}
-    .card-ground::after{background-color: var(--tips-ground-hover);}
-    .card-fairy::after{background-color: var(--tips-fairy);}
-    .card-fairy::after{background-color: var(--tips-fairy-hover);}
-    .card-fighting::after{background-color: var(--tips-fighting);}
-    .card-fighting::after{background-color: var(--tips-fighting-hover);}
-    .card-psychic::after{background-color: var(--tips-psychic);}
-    .card-psychic::after{background-color: var(--tips-psychic-hover);}
-    .card-rock::after{background-color: var(--tips-rock);}
-    .card-rock::after{background-color: var(--tips-rock-hover);}
-    .card-ghost::after{background-color: var(--tips-ghost);}
-    .card-ghost::after{background-color: var(--tips-ghost-hover);}
-    .card-ice::after{background-color: var(--tips-ice);}
-    .card-ice::after{background-color: var(--tips-ice-hover);}
-    .card-dragon::after{background-color: var(--tips-dragon);}
-    .card-dragon::after{background-color: var(--tips-dragon-hover);}
-    .card-dark::after{background-color: var(--tips-dark);}
-    .card-dark::after{background-color: var(--tips-dark-hover);}
-    .card-steel::after{background-color: var(--tips-steel);}
-    .card-steel::after{background-color: var(--tips-steel-hover);}
-    .card-flying::after{background-color: var(--tips-flying-hover);}
+/* Hover suave en la tarjeta (sin romper capas) */
+.card:hover {
+    z-index: 2; 
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
 
-    .card::after{
-        content: '';
-        width: 100px;
-        height: 100px;
-        /* background-color: var(--gray-2); */
-        top: -20%;
-        left: -20%;
-        position: absolute;
-        border-radius: 100%;
-    }
+/* --- CONTENIDOS INTERNOS --- */
+.card img {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    position: relative;
+    z-index: 3;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    transition: transform 0.25s ease;
+}
 
-.card:hover{
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    transition: 0.2s;
-    transform: translateY(-10px);
+.card:hover img {
+    transform: scale(1.06);
 }
 
 .card-name {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #2c3e50;
+    position: relative;
+    z-index: 3;
 }
-
-.card img {
-    /* width: 150px;
-    height: 150px; */
-    object-fit: contain;    
-}
-
-.card .icon {
-    width: 30px;
-    opacity: 0.4;
-    transform: scale(0.9); 
-    transition: 0.5s;
-    /* fill: transparent; */
-    stroke: none;
-}
-
-.card .icon-active{opacity: 1; transform: scale(1.1); transition: 0.5s;}
 
 .card-info {
     display: flex;
-    width: 80%;
+    width: 90%;
     justify-content: space-between;
     align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    position: relative;
+    z-index: 3;
 }
 
-.card-info img{
-    height: 20px;
-    width: 20px;
+/* Ícono de corazón / favorito */
+.card .icon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.4;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
+
+.card .icon-active {
+    opacity: 1; 
+    transform: scale(1.1); 
+}
+
+/* --- BOLA DE FONDO (Recortada en la esquina) --- */
+.card::after {
+    content: '';
+    width: 110px;
+    height: 110px;
+    top: -25px;
+    left: -25px;
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.85;
+    z-index: 2;
+}
+
+/* Colores por tipo con fallbacks */
+.card-all::after      { background-color: var(--type-all, var(--tips-all, #DB092C)); }
+.card-grass::after    { background-color: var(--type-grass, var(--tips-grass, #83c765)); }
+.card-fire::after     { background-color: var(--type-fire, var(--tips-fire, #ec514a)); }
+.card-water::after    { background-color: var(--type-water, var(--tips-water, #4fa6f9)); }
+.card-bug::after      { background-color: var(--type-bug, var(--tips-bug, #b7c551)); }
+.card-normal::after   { background-color: var(--type-normal, var(--tips-normal, #b3b2aa)); }
+.card-poison::after   { background-color: var(--type-poison, var(--tips-poison, #b97fc9)); }
+.card-electric::after { background-color: var(--type-electric, var(--tips-electric, #f3d55f)); }
+.card-ground::after   { background-color: var(--type-ground, var(--tips-ground, #dcbf67)); }
+.card-fairy::after    { background-color: var(--type-fairy, var(--tips-fairy, #fdb9e9)); }
+.card-fighting::after { background-color: var(--type-fighting, var(--tips-fighting, #d56723)); }
+.card-psychic::after  { background-color: var(--type-psychic, var(--tips-psychic, #ea61a2)); }
+.card-rock::after     { background-color: var(--type-rock, var(--tips-rock, #c0b176)); }
+.card-ghost::after    { background-color: var(--type-ghost, var(--tips-ghost, #707070)); }
+.card-ice::after      { background-color: var(--type-ice, var(--tips-ice, #88dffb)); }
+.card-dragon::after   { background-color: var(--type-dragon, var(--tips-dragon, #f16e57)); }
+.card-dark::after     { background-color: var(--type-dark, var(--tips-dark, #707070)); }
+.card-steel::after    { background-color: var(--type-steel, var(--tips-steel, #9eb7b8)); }
+.card-flying::after   { background-color: var(--type-flying, var(--tips-flying, #89aae3)); }

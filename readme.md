@@ -12,7 +12,8 @@ El proyecto consiste en el desarrollo de una página web responsiva que simule u
 
 ## 🎨 Layout
 
-<img src="src/Fase4_Login.mp4"></i>
+<img src="src/images/LoginPoke.png"></i>
+<img src="src/images/mainpoke.png"></i>
 
 
 ---

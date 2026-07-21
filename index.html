@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,111 +8,465 @@
     <link rel="stylesheet" href="src/css/mobile.css">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/528/528101.png">
     <title>Pokédex by Nayeli 🌻</title>
+
+    <style>
+        /* --- ESTILOS GLOBAL Y AUTENTICACIÓN --- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f8fafc;
+        }
+
+        /* Fondo Rojo Pokédex con Marca de Agua */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            background: #dc2626; /* Rojo Pokédex */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Silueta de Pokébola en el fondo */
+        .auth-container::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border: 55px solid rgba(255, 255, 255, 0.07);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        /* Tarjeta de Autenticación */
+        .auth-card {
+            background: #ffffff;
+            padding: 40px 32px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Cabecera del Formulario */
+        .auth-card-header {
+            margin-bottom: 28px;
+        }
+
+        .auth-card-header img {
+            width: 54px;
+            height: 54px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        .auth-card h2 {
+            margin: 0;
+            color: #0f172a;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .auth-card p.subtitle {
+            margin: 6px 0 0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Formulario e Inputs */
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-size: 15px;
+            background-color: #f8fafc;
+            color: #0f172a;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus {
+            background-color: #ffffff;
+            border-color: #dc2626;
+            box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12);
+        }
+
+        /* Botones */
+        .btn-action {
+            width: 100%;
+            padding: 14px;
+            background: #dc2626;
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+            transition: all 0.2s ease;
+            margin-top: 8px;
+        }
+
+        .btn-action:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(220, 38, 38, 0.45);
+        }
+
+        .btn-action:active {
+            transform: translateY(0);
+        }
+
+        /* Divisor con línea */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 22px 0;
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .divider span {
+            padding: 0 10px;
+        }
+
+        /* Botón de Invitado */
+        .btn-guest {
+            width: 100%;
+            padding: 12px;
+            background-color: #ffffff;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .btn-guest:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            color: #1e293b;
+        }
+
+        /* Toggle de Login/Signup */
+        .auth-toggle {
+            margin-top: 22px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .auth-toggle a {
+            color: #dc2626;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .auth-toggle a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- BARRA DE USUARIO ACTIVO --- */
+        #pokedex-content {
+            display: none;
+        }
+
+        .user-bar {
+            background-color: #1e293b;
+            color: white;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+
+        .btn-signout {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.2s;
+        }
+
+        .btn-signout:hover {
+            background-color: #b91c1c;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="circles">
-            <div class="cicle-big">
-                <div class="circle-blue"></div>
-            </div>
-            <div class="circle-small">
-                <div class="circle-red"></div>
-                <div class="circle-yellow"></div>
-                <div class="circle-green"></div>
-            </div>
-        </div>
-        <h1 class="title">Pokédex by Nayeli 🌻</h1>
-        <nav>
-            <a href="index.html" class="home">
-                <figure>
-                    <img src="src/images/house2.svg" alt="Ícono de página inicial" title="Página inicial"/>
-                </figure>
-            </a>
-            <a href="#" onclick="Render.Favorites()" class="favorites">
-                <figure>
-                    <img src="src/images/heart2.svg" alt="Ícono para ir a los favoritos" title="Favoritos"/>
-                </figure> 
-            </a>
-        </nav>
-    </header>
-    <main>
-        <div class="search">
-            <img width="50px" src="src/images/plus.svg" alt="Imagen plus">
-            <input onkeyup="Render.Search(this.value)"type="text" id="search-poke">
-            <div class="circle-search"></div>
-        </div>
-            <ul class="list-tips">
-                <li onclick="Render.Category('')"   class="tips tips-all" >All</li>
-                <li onclick="Render.Category('grass')"   class="tips tips-grass" >Grass</li>
-                <li onclick="Render.Category('fire')"    class="tips tips-fire" >Fire</li>
-                <li onclick="Render.Category('water')"   class="tips tips-water" >Water</li>
-                <li onclick="Render.Category('bug')"     class="tips tips-bug" >Bug</li>
-                <li onclick="Render.Category('normal')"  class="tips tips-normal" >Normal</li>
-                <li onclick="Render.Category('poison')"  class="tips tips-poison" >Poison</li>
-                <li onclick="Render.Category('electric')"class="tips tips-electric" >Electric</li>
-                <li onclick="Render.Category('ground')"  class="tips tips-ground" >Ground</li>
-                <li onclick="Render.Category('fairy')"   class="tips tips-fairy" >Fairy</li>
-                <li onclick="Render.Category('fighting')"class="tips tips-fighting" >Fighting</li>
-                <li onclick="Render.Category('psychic')" class="tips tips-psychic" >Psychic</li>
-                <li onclick="Render.Category('rock')"    class="tips tips-rock" >Rock</li>
-                <li onclick="Render.Category('ghost')"   class="tips tips-ghost" >Ghost</li>
-                <li onclick="Render.Category('ice')"     class="tips tips-ice" >Ice</li>
-                <li onclick="Render.Category('dragon')"  class="tips tips-dragon" >Dragon</li>
-                <li onclick="Render.Category('dark')"    class="tips tips-dark" >Dark</li>
-                <li onclick="Render.Category('steel')"   class="tips tips-steel" >Steel</li>
-                <li onclick="Render.Category('flying')"   class="tips tips-flying">Flying</li>
-            </ul>
-        <section id="cards">
-        </section>
-    </main>
 
-    <div class="modal modal-effects modal-off" id="div_modal">
-        <div class="modal-in modal-body " style="overflow-y: scroll;">
-            <div style="text-align: center;">
-                <div class="ball" id="ball"></div>
-                <img style="position: relative; z-index: 2" id="modal_img" height="200px" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png">
+    <!-- 1. SECCIÓN DE AUTENTICACIÓN (LOGIN & SIGN UP) -->
+    <div id="auth-section" class="auth-container">
+        
+        <!-- LOG IN CARD -->
+        <div id="login-card" class="auth-card">
+            <div class="auth-card-header">
+                <img src="https://cdn-icons-png.flaticon.com/512/528/528101.png" alt="Pokéball Icon">
+                <h2>Welcome Back!</h2>
+                <p class="subtitle">Enter your trainer details to start</p>
             </div>
-            <div id="modalContenido">
-                <span id="modal_name"></span>
-                <span id="modal_type"></span>
+            
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" required placeholder="e.g. Nayeli Montes">
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="btn-action">Log In</button>
+            </form>
+
+            <div class="divider"><span>OR</span></div>
+
+            <button type="button" onclick="enterAsGuest()" class="btn-guest">✨ Continue as Guest</button>
+
+            <div class="auth-toggle">
+                Don't have an account? <a onclick="showSignUp()">Sign Up here</a>
             </div>
-            <div id="modalDetails">
-                <p>Peso <span id="modal_weight"></span></p>
-                <p>Altura <span id="modal_height"></span></p>
+        </div>
+
+        <!-- SIGN UP CARD (Oculto por defecto) -->
+        <div id="signup-card" class="auth-card" style="display: none;">
+            <div class="auth-card-header">
+                <img src="https://cdn-icons-png.flaticon.com/512/528/528101.png" alt="Pokéball Icon">
+                <h2>Create Account</h2>
+                <p class="subtitle">Join and register your favorite Pokémon</p>
             </div>
-            <div id="modalStatus">
-                <h4>Status</h4>
-                <div class="modalStatusBody" >
-                    <div class="modalStatusInfo">
-                        <p>Hp</p>
-                        <div class="progressBar"><div class="progress progress-hp" id="progress_hp"><span id="modal_hp"></span></div></div>
-                    </div>
-                    <div class="modalStatusInfo">
-                        <p>Atk</p>
-                        <div class="progressBar"><div class="progress progress-atk" id="progress_atk"><span id="modal_atk"></span></div></div>
-                    </div>
-                    <div class="modalStatusInfo">
-                        <p>Def</p>
-                        <div class="progressBar"><div class="progress progress-def" id="progress_def"><span id="modal_def"></span></div></div>
-                    </div>
-                    <div class="modalStatusInfo">
-                        <p>Atk especial</p>
-                        <div class="progressBar"><div class="progress progress-satk" id="progress_satk"><span id="modal_satk"></span></div></div>
-                    </div>
-                    <div class="modalStatusInfo">
-                        <p>Def especial</p>
-                        <div class="progressBar"><div class="progress progress-sdef" id="progress_sdef"><span id="modal_sdef"></span></div></div>
-                    </div>
-                    <div class="modalStatusInfo">
-                        <p>Velocidade</p>
-                        <div class="progressBar"><div class="progress progress-speed" id="progress_speed"><span id="modal_speed"></span></div></div>
+            
+            <form onsubmit="handleSignUp(event)">
+                <div class="form-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" required placeholder="Choose a username">
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" required placeholder="trainer@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required placeholder="••••••••">
+                </div>
+                
+                <button type="submit" class="btn-action">Sign Up</button>
+            </form>
+
+            <div class="auth-toggle">
+                Already have an account? <a onclick="showLogIn()">Log In here</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 2. SECCIÓN PRINCIPAL POKÉDEX -->
+    <div id="pokedex-content">
+        
+        <div class="user-bar">
+            <span>👤 Active Session: <strong id="user-display">Guest</strong></span>
+            <button onclick="handleSignOut()" class="btn-signout">Sign Out</button>
+        </div>
+
+        <header>
+            <div class="circles">
+                <div class="cicle-big">
+                    <div class="circle-blue"></div>
+                </div>
+                <div class="circle-small">
+                    <div class="circle-red"></div>
+                    <div class="circle-yellow"></div>
+                    <div class="circle-green"></div>
+                </div>
+            </div>
+            <h1 class="title">Pokédex by Nayeli 🌻</h1>
+            <nav>
+                <a href="#" onclick="location.reload()" class="home">
+                    <figure>
+                        <img src="src/images/house2.svg" alt="Home icon" title="Home"/>
+                    </figure>
+                </a>
+                <a href="#" onclick="Render.Favorites()" class="favorites">
+                    <figure>
+                        <img src="src/images/heart2.svg" alt="Favorites icon" title="Favorites"/>
+                    </figure> 
+                </a>
+            </nav>
+        </header>
+
+        <main>
+            <div class="search">
+                <img width="50px" src="src/images/plus.svg" alt="Plus image">
+                <input onkeyup="Render.Search(this.value)" type="text" id="search-poke">
+                <div class="circle-search"></div>
+            </div>
+
+            <ul class="list-tips">
+                <li onclick="Render.Category('')"        class="tips tips-all">All</li>
+                <li onclick="Render.Category('grass')"   class="tips tips-grass">Grass</li>
+                <li onclick="Render.Category('fire')"    class="tips tips-fire">Fire</li>
+                <li onclick="Render.Category('water')"   class="tips tips-water">Water</li>
+                <li onclick="Render.Category('bug')"     class="tips tips-bug">Bug</li>
+                <li onclick="Render.Category('normal')"  class="tips tips-normal">Normal</li>
+                <li onclick="Render.Category('poison')"  class="tips tips-poison">Poison</li>
+                <li onclick="Render.Category('electric')"class="tips tips-electric">Electric</li>
+                <li onclick="Render.Category('ground')"  class="tips tips-ground">Ground</li>
+                <li onclick="Render.Category('fairy')"   class="tips tips-fairy">Fairy</li>
+                <li onclick="Render.Category('fighting')"class="tips tips-fighting">Fighting</li>
+                <li onclick="Render.Category('psychic')" class="tips tips-psychic">Psychic</li>
+                <li onclick="Render.Category('rock')"    class="tips tips-rock">Rock</li>
+                <li onclick="Render.Category('ghost')"   class="tips tips-ghost">Ghost</li>
+                <li onclick="Render.Category('ice')"     class="tips tips-ice">Ice</li>
+                <li onclick="Render.Category('dragon')"  class="tips tips-dragon">Dragon</li>
+                <li onclick="Render.Category('dark')"    class="tips tips-dark">Dark</li>
+                <li onclick="Render.Category('steel')"   class="tips tips-steel">Steel</li>
+                <li onclick="Render.Category('flying')"  class="tips tips-flying">Flying</li>
+            </ul>
+
+            <section id="cards"></section>
+        </main>
+
+        <div class="modal modal-effects modal-off" id="div_modal">
+            <div class="modal-in modal-body" style="overflow-y: scroll;">
+                <div style="text-align: center;">
+                    <div class="ball" id="ball"></div>
+                    <img style="position: relative; z-index: 2" id="modal_img" height="200px" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png">
+                </div>
+                <div id="modalContenido">
+                    <span id="modal_name"></span>
+                    <span id="modal_type"></span>
+                </div>
+                <div id="modalDetails">
+                    <p>Weight <span id="modal_weight"></span></p>
+                    <p>Height <span id="modal_height"></span></p>
+                </div>
+                <div id="modalStatus">
+                    <h4>Stats</h4>
+                    <div class="modalStatusBody">
+                        <div class="modalStatusInfo">
+                            <p>HP</p>
+                            <div class="progressBar"><div class="progress progress-hp" id="progress_hp"><span id="modal_hp"></span></div></div>
+                        </div>
+                        <div class="modalStatusInfo">
+                            <p>Atk</p>
+                            <div class="progressBar"><div class="progress progress-atk" id="progress_atk"><span id="modal_atk"></span></div></div>
+                        </div>
+                        <div class="modalStatusInfo">
+                            <p>Def</p>
+                            <div class="progressBar"><div class="progress progress-def" id="progress_def"><span id="modal_def"></span></div></div>
+                        </div>
+                        <div class="modalStatusInfo">
+                            <p>Sp. Atk</p>
+                            <div class="progressBar"><div class="progress progress-satk" id="progress_satk"><span id="modal_satk"></span></div></div>
+                        </div>
+                        <div class="modalStatusInfo">
+                            <p>Sp. Def</p>
+                            <div class="progressBar"><div class="progress progress-sdef" id="progress_sdef"><span id="modal_sdef"></span></div></div>
+                        </div>
+                        <div class="modalStatusInfo">
+                            <p>Speed</p>
+                            <div class="progressBar"><div class="progress progress-speed" id="progress_speed"><span id="modal_speed"></span></div></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <script src="src/js/script.js"></script>
     <script src="src/js/modal.js"></script>
+
+    <!-- SCRIPT DE AUTENTICACIÓN Y NAVEGACIÓN -->
+    <script>
+        function switchView(username) {
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('pokedex-content').style.display = 'block';
+            document.getElementById('user-display').innerText = username;
+        }
+
+        function showSignUp() {
+            document.getElementById('login-card').style.display = 'none';
+            document.getElementById('signup-card').style.display = 'block';
+        }
+
+        function showLogIn() {
+            document.getElementById('signup-card').style.display = 'none';
+            document.getElementById('login-card').style.display = 'block';
+        }
+
+        function enterAsGuest() {
+            switchView('Guest 🍃');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value;
+            switchView(username);
+        }
+
+        function handleSignUp(e) {
+            e.preventDefault();
+            const username = document.getElementById('signup-username').value;
+            alert('Account created successfully!');
+            switchView(username);
+        }
+
+        function handleSignOut() {
+            document.getElementById('pokedex-content').style.display = 'none';
+            document.getElementById('auth-section').style.display = 'flex';
+            showLogIn();
+        }
+    </script>
 </body>
 </html>

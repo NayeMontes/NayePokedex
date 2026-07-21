@@ -1,47 +1,73 @@
 @import 'colors.css';
 
-/* modal */
-.modal{
+/* --- CONTENEDOR OVERLAY (FONDO OSCURO DEL MODAL) --- */
+.modal {
     width: 100vw;
     height: 100vh;
     position: fixed;
     top: 0px;
     left: 0px;
-    background-color: #00000055;
+    background-color: rgba(0, 0, 0, 0.55);
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    /* 🔴 CLAVE: Eleva el modal completo por encima de TODAS las tarjetas */
+    z-index: 1000; 
+    
+    /* Efecto difuminado elegante para el fondo */
+    backdrop-filter: blur(4px); 
 }
 
-.modal-scroll{overflow: auto;}
+.modal-scroll { 
+    overflow: auto; 
+}
 
-.modal-off{display: none;}
-.modal-on{display: flex;}
+/* Control de visibilidad */
+.modal-off { 
+    display: none !important; 
+}
 
-.modal-in::-webkit-scrollbar{width: 20px;}
+.modal-on { 
+    display: flex !important; 
+}
 
-.modal-in{
+/* --- VENTANA / TARJETA INTERNA BLANCA --- */
+.modal-in {
     width: 400px;
     height: 550px;
     max-width: 90%;
     max-height: 90%;
-    background-color: white;
-    border-radius: 10px;
+    background-color: #ffffff;
+    border-radius: 16px;
     position: relative;
-    overflow: hidden;
-    box-shadow: 0px 0px 3px #00000055;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    
+    /* Asegura estar un paso por encima del fondo oscuro */
+    z-index: 1001; 
 }
 
-.modal-body{
-    padding:20px;
+.modal-in::-webkit-scrollbar {
+    width: 8px;
 }
 
-/* part 2 */
+.modal-in::-webkit-scrollbar-thumb {
+    background-color: var(--gray-2, #ccc);
+    border-radius: 4px;
+}
 
-.modal .ball{
+.modal-body {
+    padding: 20px;
+}
+
+/* --- ELEMENTOS DE DISEÑO INTERNOS --- */
+
+.modal .ball {
     width: 200px;
     height: 200px;
-    border-radius: 100%;
+    border-radius: 50%;
     position: absolute;
     left: 0px;
     right: 0px;
@@ -50,19 +76,20 @@
     z-index: 2;
     opacity: 0.5;
 }
-.modal .modal_img{
+
+.modal .modal_img {
     height: 200px;
-    max-height:100%; 
+    max-height: 100%; 
     z-index: 10;
     position: relative;
+    object-fit: contain;
 }
 
-
-/* modal */
+/* --- ESTRUCTURA DE CONTENIDO --- */
 
 #modalConteudo {
-    padding:10px;
-    display:flex;
+    padding: 10px;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -71,9 +98,10 @@
 #modal_name {
     font-size: 25px;
     font-weight: 700;
-    letter-spacing: 5px;
+    letter-spacing: 2px;
     text-transform: capitalize;
     margin-bottom: 10px;
+    color: var(--gray-3, #222);
 }
 
 #modal_type {
@@ -82,6 +110,7 @@
     padding: 7px 20px;
     border-style: solid;
     border-width: 3px;
+    font-weight: 600;
 }
 
 #modalDetails {
@@ -89,81 +118,98 @@
     align-items: center;
     justify-content: center;
     gap: 40px;
+    margin: 15px 0;
 }
 
 #modalDetails p {
     display: flex;
     flex-direction: column;
-    color: var(--gray-3);
+    color: var(--gray-3, #555);
+    text-align: center;
 }
 
 #modalDetails span {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }
 
 #modalStatus {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 #modalStatus h4 {
     font-size: 20px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .modalStatusBody {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 8px;
 }
 
 #modalStatus span {
     margin-right: 5px;
+    font-weight: 600;
 }
 
 .modalStatusInfo { 
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5px;
+    width: 100%;
+    padding: 4px 0;
 }
+
+/* --- BARRAS DE ESTADÍSTICAS (STATS) --- */
 
 .progressBar {
     display: inline-block;
-    height: 15px;
-    width: 200px;
+    height: 14px;
+    width: 180px;
     border-radius: 20px;
-    background-color: var(--gray-1);
+    background-color: var(--gray-1, #eee);
     overflow: hidden;
+    position: relative;
 }
 
 .progress {
     width: 50%;
     max-width: 100%;
     color: var(--gray-1);
-    font-size: 12px;
+    font-size: 11px;
     background-color: var(--red-1);
     height: 100%;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     position: relative;
+    border-radius: 20px;
+    transition: width 0.4s ease-in-out;
 }
 
-.progress::after{
-    content: "200";
+.progress::after {
+    content: attr(data-value); /* Opcional: si en JS colocas data-value="200" */
     position: absolute;
     left: 105%;
     color: black;
+    font-weight: bold;
 }
 
-.progress span{color: white;}
+.progress span { 
+    color: white; 
+}
 
-.progress-hp{background-color: var(--red-1);}
-.progress-atk{background-color: var(--blue-1);}
-.progress-def{background-color: var(--green-1);}
-.progress-satk{background-color: var(--tips-fighting);}
-.progress-sdef{background-color: var(--tips-ghost);}
-.progress-speed{background-color: var(--tips-psychic);}
+/* Colores de las Barras */
+.progress-hp   { background-color: var(--red-1, #ff4d4d); }
+.progress-atk  { background-color: var(--blue-1, #4da6ff); }
+.progress-def  { background-color: var(--green-1, #4dff88); }
+.progress-satk { background-color: var(--tips-fighting, #ff9933); }
+.progress-sdef { background-color: var(--tips-ghost, #9966ff); }
+.progress-speed{ background-color: var(--tips-psychic, #ff4da6); }

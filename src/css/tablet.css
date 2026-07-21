@@ -1,0 +1,90 @@
+/* ==========================================================================
+   ESTILOS TABLET (tablet.css)
+   ========================================================================== */
+
+@media screen and (min-width: 641px) and (max-width: 1024px) {
+    /* --- ENCABEZADO Y POKÉDEX LIGHTS --- */
+    header {
+        padding: 14px 24px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .circles {
+        gap: 12px;
+    }
+
+    .circle-blue {
+        width: 42px;
+        height: 42px;
+    }
+
+    .circle-red, 
+    .circle-yellow, 
+    .circle-green {
+        width: 14px;
+        height: 14px;
+    }
+
+    /* --- NAVEGACIÓN Y BÚSQUEDA --- */
+    nav {
+        font-size: 0.85rem;
+        gap: 14px;
+    }
+
+    .search input {
+        width: 320px; /* Tamaño intermedio para tablet */
+        padding: 10px 18px;
+        font-size: 0.95rem;
+    }
+
+    /* --- FILTROS DE TIPOS --- */
+    .list-tips {
+        gap: 10px;
+        justify-content: center;
+        padding: 0 16px;
+    }
+
+    .tips {
+        padding: 6px 14px;
+        font-size: 0.8rem;
+    }
+
+    /* --- CONTENEDOR PRINCIPAL Y GRILLA DE TARJETAS --- */
+    main {
+        padding: 16px;
+    }
+
+    section,
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+        padding: 20px 12px;
+    }
+
+    /* Ajuste de tarjetas para que quepan 3 o 4 por fila según la orientación */
+    .card {
+        width: 190px;
+        margin: 8px;
+        padding: 14px 10px;
+    }
+
+    .card img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .card-name {
+        font-size: 1rem;
+    }
+
+    /* --- MODAL DETALLE EN TABLET --- */
+    .modal-in {
+        width: 420px;
+        max-height: 85vh;
+    }
+}
